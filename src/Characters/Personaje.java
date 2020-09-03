@@ -6,8 +6,14 @@ import javax.swing.JTextField;
 
 import Combat.BowBehavior;
 import Combat.CombatBehavior;
+import Combat.DaggerBehavior;
+import Combat.HammerBehavior;
 import Combat.StaffBehavior;
 import Combat.SwordBehavior;
+import Combat.WhipBehavior;
+import ItemsBehavior.HPBehavior;
+import ItemsBehavior.UseBehavior;
+import core.Inventario;
 
 /**
  * @author Diego
@@ -26,6 +32,7 @@ public abstract class Personaje {				//BUSCAR BASE DE DATOS DE NOMBRES
 	protected int	 salud;						//puntos de vida que tiene el personaje, cuando llegan a 0, el personaje está muerto
 	protected String bio;						//donde el jugador puede agregar historia de su personaje
 	CombatBehavior combatBehavior;
+	Inventario items;
 	public Personaje(String name, String category, String weapon, String sex, int ability, int combat, int clever, int health ) {						//pasar todos los datos al constructor y de ahí sacar
 		
 		this.nombre=name;
@@ -112,7 +119,7 @@ public abstract class Personaje {				//BUSCAR BASE DE DATOS DE NOMBRES
 
 	public void setCombatBehavior(String arma) {
 		//this.combatBehavior = combatBehavior;
-		switch(arma) {// "Arco", "Cétro", "Maza", "Látigo", "Daga"
+		switch(arma) {//"Espada" "Arco", "Cétro", "Maza", "Látigo", "Daga"
 		case "Espada": combatBehavior = new SwordBehavior();
 		break;
 		
@@ -121,10 +128,28 @@ public abstract class Personaje {				//BUSCAR BASE DE DATOS DE NOMBRES
 		
 		case "Cétro": combatBehavior = new StaffBehavior();
 		break;
-		}
 		
+		case "Maza": combatBehavior = new HammerBehavior();
+		break;
+		
+		case "Latigo": combatBehavior = new WhipBehavior();
+		break;
+		
+		case "Daga": combatBehavior = new DaggerBehavior();
+		break;
+		}
 	}
-
+	
+		
+			
+	
+		
+		
+	public String toString() {
+		return "Nombre: "+this.getNombre()+"\nCategoria: "+this.getCategoría()+
+				"\nArma: "+this.getArma()+"\nHabilidad: "+this.getHabilidad()+
+				"\nPelea: "+this.getPelea()+"\nAstucia: "+this.getAstucia()+"\nSalud: "+this.getSalud();
+	}
 
 		
 	public void hacerAtaque(int pelea, JTextField jtextfield) {

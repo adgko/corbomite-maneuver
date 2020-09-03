@@ -63,56 +63,56 @@ public class VistaDados {
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(2);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
        });
 		boton2.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(4);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		boton3.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(6);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		boton4.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(8);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		boton5.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(10);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		boton6.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(12);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		boton7.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(20);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		boton8.addActionListener(new ActionListener(){
 	         public void actionPerformed(ActionEvent e){
 	        	 Dado dado = new Dado();
 	        	 int num = dado.tirarDado(100);
-	        	 textfield.setText(Float.toString(num));
+	        	 textfield.setText(Integer.toString(num));
 	        	 }
       });
 		

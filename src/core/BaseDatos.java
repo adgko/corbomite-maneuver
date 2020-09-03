@@ -1,98 +1,116 @@
-/**
- * 
- */
 package core;
 
 
 import java.util.ArrayList;
-import java.util.Vector;
 
-import Characters.Pícaro;
-import Characters.Guerrero;
-import Characters.Mago;
+import Observer.Observer;
+import Observer.Subject;
 import Characters.Personaje;
-import Characters.Aventurero;
 
 
 /**
  * @author Diego
  *
  */
-public class BaseDatos {
+public class BaseDatos implements Subject{
 
 	ArrayList<Personaje> lista;
-	//ArrayList<NPC>		 listaNPC;
-	ArrayList<Guerrero>  listaG;
-	ArrayList<Pícaro> 	 listaP;
-	ArrayList<Mago> 	 listaM;
-	Vector<Aventurero> 	 listaN;
+	ArrayList<Personaje> listaNPC;
+	ArrayList<Personaje> listaCombate;
+	
+	ArrayList<Observer>  observadores;
 	
 	public BaseDatos() {
-		listaG = new ArrayList<Guerrero>();
-		listaP = new ArrayList<Pícaro>();
-		listaM = new ArrayList<Mago>();
-		//listaN = new ArrayList<NPC>();
-		listaN = new Vector<Aventurero>();
-		lista = new ArrayList<>();
-		//listaNPC = new ArrayList<>();
+		lista = new ArrayList<Personaje>();
+		listaNPC = new ArrayList<>();
+		listaCombate = new ArrayList<>();
+		observadores = new ArrayList<Observer>();
 		
 	}
 
+	public Personaje getPersonaje(String str){
+		for (Personaje personaje : lista){
+			if(personaje.toString().equals(str)) return personaje;
+		}		
+		for (Personaje personaje : listaNPC){
+			if(personaje.toString().equals(str)) return personaje;
+		}
+		return null;
+	}
+	
+	public Personaje getPersonajePorNombre(String str){
+		for (Personaje personaje : lista){
+			if(personaje.getNombre().toString().equals(str)) return personaje;
+		}		
+		for (Personaje personaje : listaNPC){
+			if(personaje.getNombre().toString().equals(str)) return personaje;
+		}
+		return null;
+	}
+	
+	public void borrarPersonaje(String str){
+		for (Personaje personaje : lista){
+			if(personaje.toString().equals(str)) lista.remove(personaje);
+		}		
+		for (Personaje personaje : listaNPC){
+			if(personaje.toString().equals(str)) lista.remove(personaje);
+		}
+		for (Personaje personaje : listaCombate){
+			if(personaje.toString().equals(str)) lista.remove(personaje);
+		}
+		this.notifyObservers();
+	}
+	
 	public ArrayList<Personaje> getLista() {
 		return lista;
+	}
+	
+	public void addDatosNPC(Personaje pe) {
+		listaNPC.add(pe);
+		this.notifyObservers();
 	}
 
 	public void setLista(ArrayList<Personaje> lista) {
 		this.lista = lista;
 	}
-	public void addDatos(Personaje pe) {
-		
+	
+	public void addDatos(Personaje pe) {		
 		lista.add(pe);
 		System.out.printf(pe.toString());
+		this.notifyObservers();
 	}
 
-	public ArrayList<Guerrero> getlistG() {
-		return listaG;
-	}
-	public void setListG(ArrayList<Guerrero> g) {
-		this.listaG=g;
-	}
-	public void addDatosG(Guerrero g) {
-		
-		listaG.add(g);
+	public ArrayList<Personaje> getListapelea() {
+		return listaCombate;
 	}
 	
-	public ArrayList<Pícaro> getlistA() {
-		return listaP;
-	}
-	public void setListA(ArrayList<Pícaro> p) {
-		this.listaP=p;
-	}
-	public void addDatosA(Pícaro p) {
-		
-		listaP.add(p);
+	public void setListapelea(ArrayList<Personaje> listapelea) {
+		this.listaCombate = listapelea;
 	}
 	
-	public ArrayList<Mago> getlistM() {
-		return listaM;
-	}
-	public void setListM(ArrayList<Mago> m) {
-		this.listaM=m;
-	}
-	public void addDatosM(Mago m) {
-		
-		listaM.add(m);
+	public void addDatospelea(Personaje pe) {
+		listaCombate.add(pe);
+		//System.out.println(pe.toString());
+		this.notifyObservers();
 	}
 
-	public Vector<Aventurero> getListaN() {
-		return listaN;
+	@Override
+	public void registerObserver(Observer o) {
+		observadores.add(o);
+		
 	}
 
-	public void setListaN(Vector<Aventurero> listaN) {
-		this.listaN = listaN;
+	@Override
+	public void removeObserver(Observer o) {
+		observadores.remove(o);
+		
 	}
-	public void addDatosN(Aventurero n) {
-		listaN.add(n);
-	}
-	
+
+	@Override
+	public void notifyObservers() {
+		for(Observer observador: observadores) {
+			observador.update(lista, listaNPC,listaCombate);
+		}
+		
+	}	
 }

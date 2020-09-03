@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import Characters.Pícaro;
 import Dados.Dado;
@@ -26,17 +26,15 @@ import Characters.Personaje;
 import core.BaseDatos;
 import Vistas.VistaMain;
 
-public class VistaCreacion  {
+public class VistaCreacionNPC  {
 	JFrame 		ventana;
 	JPanel 		panelDatos;
 	JLabel  	tpe;
-	JComboBox 	type;
-	String		tipo;
 	JLabel  	nme;
 	JTextField 	name;
 	String  	nombre;
 	JLabel      tegory;
-	JComboBox   category;
+	JComboBox<Personaje>   category;
 	String  	categoría;
 	JLabel  	wpon;
 	JComboBox 	weapon;
@@ -61,7 +59,7 @@ public class VistaCreacion  {
 	Dado dado;
 	
 	
-	public VistaCreacion() {
+	public VistaCreacionNPC() {
 		//this.categoría=category;
 		
 		ventana = new JFrame();
@@ -71,7 +69,7 @@ public class VistaCreacion  {
 		baseDatos = new BaseDatos();
 		dado = new Dado();
 		panelDatos.setLayout(null);
-		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
 		/*String[] typesString = { "    ", "Character", "NPC" };
 		type = new JComboBox(typesString);
 		panelDatos.add(type);
@@ -90,7 +88,6 @@ public class VistaCreacion  {
 		nombre = name.getText();
 		name.setBounds(110,40,80,20); 
 		nme.setBounds(50,40,80,20);
-		name.requestFocus(false);
 		
 		
 		tegory = new JLabel("categoría");
@@ -110,7 +107,7 @@ public class VistaCreacion  {
 		category.setSelectedIndex(dado.tirarDado(categoriesString.length)-1);
 		
 		wpon = new JLabel("arma");
-		String[] weaponsString = {"Espada", "Arco", "Cétro", "Maza", "Látigo", "Daga" };
+		String[] weaponsString = {"    ",  "Espada", "Arco", "Cétro", "Maza", "Látigo", "Daga" };
 		weapon = new JComboBox(weaponsString);
 		panelDatos.add(wpon);
 		panelDatos.add(weapon);
@@ -122,11 +119,10 @@ public class VistaCreacion  {
 	        	
 	             arma = (String)weapon.getSelectedItem();
 	         }
-		});
-		weapon.setSelectedIndex(dado.tirarDado(weaponsString.length)-1);
-		
+     });
+		weapon.setSelectedIndex(dado.tirarDado(weaponsString.length)-1);		
 		se = new JLabel("sexo");
-		String[] sexString = {"Hombre", "Mujer", "Otro" };
+		String[] sexString = { "    ", "Hombre", "Mujer", "Otro" };
 		sex = new JComboBox(sexString);
 		panelDatos.add(se);
 		panelDatos.add(sex);
@@ -139,7 +135,7 @@ public class VistaCreacion  {
 	         	 }
 		});
 		sex.setSelectedIndex(dado.tirarDado(sexString.length)-1);
-		
+	
 		bilty = new JLabel("habilidad");
 		ability = new JTextField(Integer.toString(dado.tirarDado(10)+5));
 		panelDatos.add(ability);
@@ -179,27 +175,29 @@ public class VistaCreacion  {
 	        	 case "Guerrero": Guerrero g = new Guerrero(name.getText(), categoría, arma, sexo, Integer.parseInt(ability.getText()), Integer.parseInt(fight.getText()), Integer.parseInt(clever.getText()),Integer.parseInt(health.getText()));
 	        	 System.out.println(g.getNombre()+" categoria " +g.getCategoría()+" sexo "+g.getSexo()+" habilidad "+g.getHabilidad()+" pelea "+ g.getPelea()+" astucia "+g.getAstucia());
 	        	 //VistaMain.setGuerrero(g);
-	        	 VistaMain.bd.addDatos(g);
+	        	 VistaMain.bd.addDatosNPC(g);
 	        	 break;
 	        	 
-	        	 case "Pícaro": Pícaro a = new Pícaro(name.getText(), categoría, arma, sexo, Integer.parseInt(ability.getText()), Integer.parseInt(fight.getText()), Integer.parseInt(clever.getText()),Integer.parseInt(health.getText()));
-	        	 System.out.println(a.getNombre()+" categoria " +a.getCategoría()+" sexo "+a.getSexo()+" habilidad "+a.getHabilidad()+" pelea "+ a.getPelea()+" astucia "+a.getAstucia()+a.getSalud());
-	        	 VistaMain.bd.addDatos(a);
-	        	
+	        	 case "Pícaro": Pícaro p = new Pícaro(name.getText(), categoría, arma, sexo, Integer.parseInt(ability.getText()), Integer.parseInt(fight.getText()), Integer.parseInt(clever.getText()),Integer.parseInt(health.getText()));
+	        	 System.out.println(p.getNombre()+" categoria " +p.getCategoría()+" sexo "+p.getSexo()+" habilidad "+p.getHabilidad()+" pelea "+ p.getPelea()+" astucia "+p.getAstucia()+p.getSalud());
+	        	 //VistaMain.setPícaro(a);
+	        	 //System.out.println(VistaMain.bd.getlistA());
+	        	 VistaMain.bd.addDatosNPC(p);
 	        	 break;
 	        	 
 	        	 case "Mago": Mago m = new Mago(name.getText(), categoría, arma, sexo, Integer.parseInt(ability.getText()), Integer.parseInt(fight.getText()), Integer.parseInt(clever.getText()),Integer.parseInt(health.getText()));
 	        	 System.out.println(m.getNombre()+" categoria " +m.getCategoría()+" sexo "+m.getSexo()+" habilidad "+m.getHabilidad()+" pelea "+ m.getPelea()+" astucia "+m.getAstucia());
-	        	 VistaMain.bd.addDatos(m);
-	        	 
+	        	 //VistaMain.setMago(m);
+	        	 VistaMain.bd.addDatosNPC(m);
 	        	 break;
 	        	 
 	        	 case "Aventurero": Aventurero n = new Aventurero(name.getText(), categoría, arma, sexo, Integer.parseInt(ability.getText()),Integer.parseInt(fight.getText()), Integer.parseInt(clever.getText()),Integer.parseInt(health.getText()));
-	        	 VistaMain.bd.addDatos(n);
+	        	 System.out.printf("hola");
+	        	 VistaMain.bd.addDatosNPC(n);
 	        	 
 	        	 break;
 	        	 }
-	            ventana.dispose();	
+	        	ventana.dispose();
 	         	 }
       });
 	    panelDatos.getRootPane().setDefaultButton(crear);
