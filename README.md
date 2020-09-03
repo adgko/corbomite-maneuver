@@ -1,6 +1,7 @@
 # Dungeon Manager v5
 
 Aplicación para la creación, almacenamiento y uso de personajes de juegos de rol. 
+Desarrollado en IDE Eclipse y lenguaje JAVA.
 
 ## Funciones:
 1. Crear personajes
